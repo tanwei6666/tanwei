@@ -23,9 +23,9 @@ $(function () {
         Prod: 'Prod'
     }
 
-    var EnumFatLoginSystem = {  //fat登录系统，分老版和新版fat47
-        CII: 'CII',
-        Fat47: 'Fat47'
+    var EnumLoginSystem = {         //登录系统
+        CII: 'CII',                 //老版
+        MembersInt: 'membersint'    //新版
     }
 
     var EnumModeCode = {
@@ -111,12 +111,12 @@ $(function () {
         }
         if (document.location.href.indexOf('CII') != -1 ||
             document.location.href.indexOf('cii') != -1) {
-            curFatSys = EnumFatLoginSystem.CII;
+            curFatSys = EnumLoginSystem.CII;
         } else if (
-                    document.location.href.indexOf('fat47') != -1 
-                    || (document.location.href.indexOf('fat4') != -1 && document.location.pathname == '/CII/order/offline_order_log.asp') //特殊逻辑，fat47第二次登录时是跳的老版登录页面，好土鳖！
+                    document.location.href.indexOf('membersint') != -1 
+                    //|| (document.location.href.indexOf('fat4') != -1 && document.location.pathname == '/CII/order/offline_order_log.asp') //特殊逻辑，fat47第二次登录时是跳的老版登录页面，好土鳖！
                   ) {
-            curFatSys = EnumFatLoginSystem.Fat47;
+            curFatSys = EnumLoginSystem.MembersInt;
         }
     }
 
@@ -147,25 +147,26 @@ $(function () {
     function login() {
         switch (curEnvir) {
             case EnumEnvir.Fat:
-                if (curFatSys == EnumFatLoginSystem.CII) {
-                    document.getElementsByName('eid')[0].value = fatConfigs.eid;
-                    document.getElementsByName('pwd')[0].value = fatConfigs.ekey;
-                    document.getElementById('Submit1').click();
-                } else if (curFatSys == EnumFatLoginSystem.Fat47) {
-                    var isFirstLogin = document.getElementsByName('eid')[0] != null;
-                    var isSecondLogin = document.getElementsByName('logineid')[0] != null;
-                    var isThirdLogin = !isFirstLogin && !isSecondLogin;
-                    if (isFirstLogin) {
+                if (curFatSys == EnumLoginSystem.CII) {
+                    var loginCase1 = document.getElementsByName('eid')[0] != null;
+                    var loginCase2 = document.getElementsByName('logineid')[0] != null;
+                    var loginCase3 = !loginCase1 && !loginCase2;
+
+                    if (loginCase1) {
                         document.getElementsByName('eid')[0].value = fatConfigs.eid;
                         document.getElementsByName('pwd')[0].value = fatConfigs.ekey;
-                        document.getElementById('btnSubmit').click();
-                    } else if (isSecondLogin) {
+                        document.getElementById('Submit1').click();
+                    } else if (loginCase2) {
                         document.getElementsByName('logineid')[0].value = fatConfigs.eid;
                         document.getElementsByName('loginpwd')[0].value = fatConfigs.ekey;
                         document.getElementsByName('btnLogin')[0].click();
-                    } else if (isThirdLogin) {
+                    } else if (loginCase3) {
                         window.location.href = 'http://inbound.fat4.qa.nt.ctripcorp.com/offlinelogin/view/signinview.aspx?Type=CORP_OFFRESERVE&module=7669';
                     }
+                } else if (curFatSys == EnumLoginSystem.MembersInt) {
+                    document.getElementsByName('eid')[0].value = fatConfigs.eid;
+                    document.getElementsByName('pwd')[0].value = fatConfigs.ekey;
+                    document.getElementById('btnSubmit').click();
                 }
                 break;
             case EnumEnvir.Uat:
@@ -217,9 +218,9 @@ $(function () {
     function loginTo7669() {
         switch (curEnvir) {
             case EnumEnvir.Fat:
-                if (curFatSys == EnumFatLoginSystem.CII) {
+                if (curFatSys == EnumLoginSystem.CII) {
                     window.location = "/cii/share/shortcut.asp?modulecode=" + fatConfigs.modeCode;
-                } else if (curFatSys == EnumFatLoginSystem.Fat47) {
+                } else if (curFatSys == EnumLoginSystem.MembersInt) {
                     window.location = "/modulejump/tNetv.aspx?module=" + fatConfigs.modeCode;
                 }
                 break;
@@ -241,8 +242,8 @@ $(function () {
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
     function offlineLogin() {
-        //fat47的signinview.aspx跳转到fat4的
-        if (curFatSys == EnumFatLoginSystem.Fat47) {
+        //fat47的signinview.aspx需要跳转到fat4
+        if (window.location.href.indexOf('fat47') != -1) {
             window.location.href = window.location.href.replace('fat47', 'fat4');
             return;
         }
@@ -286,13 +287,13 @@ $(function () {
                 return fatConfigs.modeCode;
                 break;
             case EnumEnvir.Uat:
-                curUid = uatConfigs.modeCode;
+                return uatConfigs.modeCode;
                 break;
             case EnumEnvir.Prod:
-                curUid = prodConfigs.modeCode;
+                return prodConfigs.modeCode;
                 break;
             default:
-                curUid = fatConfigs.modeCode;
+                return fatConfigs.modeCode;
         }
     }
 
@@ -303,13 +304,13 @@ $(function () {
                 return fatConfigs.subModeCode;
                 break;
             case EnumEnvir.Uat:
-                curUid = uatConfigs.subModeCode;
+                return uatConfigs.subModeCode;
                 break;
             case EnumEnvir.Prod:
-                curUid = prodConfigs.subModeCode;
+                return prodConfigs.subModeCode;
                 break;
             default:
-                curUid = fatConfigs.subModeCode;
+                return fatConfigs.subModeCode;
         }
     }
 
