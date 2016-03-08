@@ -5,23 +5,49 @@
         <legend>fat配置</legend>
         用户名（eid）：<input type="text" id="fat_eid" name="eid" /><br />
         口令：<input type="text" id="fat_ekey" name="ekey" style="margin-left: 52px; margin-top: 8px;" /><br />
-        模块号：<input type="text" id="fat_modeCode" name="modeCode" style="margin-left: 40px; margin-top: 8px;" /><br />
         登录卡（uid）：<input type="text" id="fat_uid" name="uid" style="margin-left: -1px; margin-top: 8px;" />
+        模块号：
+        <select id="fat_mode_selector" style="margin-left: 37px; margin-top: 8px;">
+            <option value="7669" selected="selected">7669</option>
+            <option value="1308">1308</option>
+            <option value="1477">1477</option>
+            <option value="1199">1199</option>
+        </select><br />
+        <span id="fat_submode_label" style="color:gray">子模块号：</span>
+        <select id="fat_submode_selector" style="margin-left: 25px; margin-top: 8px;" disabled="disabled"></select><br />
     </fieldset>
     <fieldset style="width: 270px; margin-left: 10px; float: left">
         <legend>uat配置</legend>
         用户名（eid）：<input type="text" id="uat_eid" name="eid" /><br />
         口令：<input type="text" id="uat_ekey" name="ekey" style="margin-left: 52px; margin-top: 8px;" /><br />
-        模块号：<input type="text" id="uat_modeCode" name="modeCode" style="margin-left: 40px; margin-top: 8px;" /><br />
         登录卡（uid）：<input type="text" id="uat_uid" name="uid" style="margin-left: -1px; margin-top: 8px;" />
+        模块号：
+        <select id="uat_mode_selector" style="margin-left: 37px; margin-top: 8px;">
+            <option value="7669" selected="selected">7669</option>
+            <option value="1308">1308</option>
+            <option value="1477">1477</option>
+            <option value="1199">1199</option>
+        </select><br />
+        <span id="uat_submode_label" style="color:gray">子模块号：</span>
+        <select id="uat_submode_selector" style="margin-left: 25px; margin-top: 8px;" disabled="disabled"></select><br />
     </fieldset>
     <fieldset style="width: 270px; margin-left: 10px; float: left">
         <legend>prod配置</legend>
         用户名（eid）：<input type="text" id="prod_eid" name="eid" /><br />
         口令：<input type="text" id="prod_ekey" name="ekey" style="margin-left: 52px; margin-top: 8px;" /><br />
-        模块号：<input type="text" id="prod_modeCode" name="modeCode" style="margin-left: 40px; margin-top: 8px;" /><br />
         登录卡（uid）：<input type="text" id="prod_uid" name="uid" style="margin-left: -1px; margin-top: 8px;" />
+        模块号：
+        <select id="prod_mode_selector" style="margin-left: 37px; margin-top: 8px;">
+            <option value="7669" selected="selected">7669</option>
+            <option value="1308">1308</option>
+            <option value="1477">1477</option>
+            <option value="1199">1199</option>
+        </select><br />
+        <span id="prod_submode_label" style="color:gray">子模块号：</span>
+        <select id="prod_submode_selector" style="margin-left: 25px; margin-top: 8px;" disabled="disabled"></select><br />
     </fieldset>
+    <br />
+    <br />
     <br />
     <br />
     <br />
@@ -34,6 +60,7 @@
         <span id="span_tip" style="color:green">温馨提示：清除浏览器缓存和插件数据时，本页面的数据可能会被清空。</span>
         <button id="btn_save" style="margin-left: 473px">保存</button>
         <span id="span_msg" style="color: red; visibility:hidden">保存成功!</span>
+        <script type="text/javascript" src="selectorHelper.js"></script>
         <script type="text/javascript" src="optionEvents.js"></script>
 </body>
 </html>

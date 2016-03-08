@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F221C66D-0899-4908-9C8C-FBB5739870A4}"
+	ProjectSection(SolutionItems) = preProject
+		background.html = background.html
+		background.js = background.js
+		ctripCorp.png = ctripCorp.png
+		fastToOffline.js = fastToOffline.js
+		manifest.json = manifest.json
+		optionEvents.js = optionEvents.js
+		options.html = options.html
+		selectorHelper.js = selectorHelper.js
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

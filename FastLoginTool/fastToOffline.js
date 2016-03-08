@@ -3,6 +3,8 @@ var Zepto=function(){function L(t){return null==t?String(t):j[T.call(t)]||"objec
 
 /**
  * 本脚本根据options_page里的配置，将自动跳转到各个环境下的预订站点页面（基于老版登陆系统）。
+ * 作者：任子彦，谭伟
+ * 创建日期：2016-03-08
  */
 $(function () {
 
