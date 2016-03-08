@@ -1,0 +1,20 @@
+{
+  "name": "FastToOffline",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "Fast to offline website for CorpHotel",
+  "icons": {
+      "128": "ctripCorp.png"
+  },
+  "options_page": "options.html",
+  "background": {
+	"page":
+	"background.html"
+  }, 
+  "content_scripts": [
+    {
+      "matches": ["*://*.ctriptravel.com/*", "*://*.ctripcorp.com/*"],
+      "js": ["fastToOffline.js"]
+    }
+  ]
+}
