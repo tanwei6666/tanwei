@@ -50,8 +50,16 @@ function selectorCouplingEvent(parentSelectorId, childSelectorId, labelid) {
     var subModeSelector = document.getElementById(childSelectorId);
     if (value == '7669') {
         if (subModeSelector) {
+            clearOptions(childSelectorId);
             subModeSelector.appendChild(createOption('国内酒店预订', 0));
             subModeSelector.appendChild(createOption('海外酒店预订', 1));
+
+            subModeSelector.disabled = false;
+            setLabelForeColor(labelid, 'black');
+        }
+    } else if (value == '371121') {
+        if (subModeSelector) {
+            clearOptions(childSelectorId);
             subModeSelector.appendChild(createOption('系统外预订', 2));
 
             subModeSelector.disabled = false;

@@ -35,6 +35,12 @@ $(function () {
         m1199: '1199'
     }
 
+    var EnumSubModeCode = {
+        offlineDomestic: '0',
+        offlineOverSea: '1',
+        bookingProcess: '2'     //1308
+    }
+
     var curEnvir = ''; 			//保存当前环境的变量
     var curFatSys = '';         //保存当前fat登录系统是老版还是新版（fat47）
     var isLoginAgain4Prod = false; //是否是生产环境下的二次登录
@@ -81,7 +87,7 @@ $(function () {
                 loginToMode();
                 break;
             case EnumPageType.SignInView:
-                offlineLogin();
+                loginToSubMode();
                 break;
             case EnumPageType.CloseWindowOnly:
                 closeMessage();
@@ -197,25 +203,21 @@ $(function () {
 
     // 登录到指定模块
     function loginToMode() {
-        var modeCode = getCurModeCode();
-        switch (modeCode) {
-            case EnumModeCode.m7669:
-                loginTo7669();
-                return;
-            case EnumModeCode.m1308:
-                loginTo1308();
-                return;
-            case EnumModeCode.m1477:
-                return;
-            case EnumModeCode.m1199:
-                return;
-            break;
-            default:
-        }
-    }
-
-    // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
-    function loginTo7669() {
+        //var modeCode = getCurModeCode();
+        //switch (modeCode) {
+        //    case EnumModeCode.m7669:
+        //        loginTo7669();
+        //        return;
+        //    case EnumModeCode.m1308:
+        //        loginTo1308();
+        //        return;
+        //    case EnumModeCode.m1477:
+        //        return;
+        //    case EnumModeCode.m1199:
+        //        return;
+        //    break;
+        //    default:
+        //}
         switch (curEnvir) {
             case EnumEnvir.Fat:
                 if (curFatSys == EnumLoginSystem.CII) {
@@ -235,13 +237,32 @@ $(function () {
         }
     }
 
-    // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
-    function loginTo1308() {
-        alert('loginTo1308');
+    //var EnumSubModeCode = {
+    //    offlineDomestic: '0',
+    //    offlineOverSea: '1',
+    //    bookingProcess: '2'     //1308
+    //}
+
+    // 跳转到子页面
+    function loginToSubMode() {
+        var curSubMode = getCurSubModeCode();
+        switch (curSubMode) {
+            case EnumSubModeCode.offlineDomestic:
+                loginToOffline();
+                break;
+            case EnumSubModeCode.offlineOverSea:
+                return uatConfigs.subModeCode;
+                break;
+            case EnumSubModeCode.bookingProcess:
+                loginTo1308();
+                break;
+            default:
+                break;
+        }
     }
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
-    function offlineLogin() {
+    function loginToOffline() {
         //fat47的signinview.aspx需要跳转到fat4
         if (window.location.href.indexOf('fat47') != -1) {
             window.location.href = window.location.href.replace('fat47', 'fat4');
@@ -251,27 +272,26 @@ $(function () {
         var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
         go = document.getElementsByName('go')[0];
         if (userValue) {
-            var curUid = '';
-
-            switch (curEnvir) {
-                case EnumEnvir.Fat:
-                    curUid = fatConfigs.uid;
-                    break;
-                case EnumEnvir.Uat:
-                    curUid = uatConfigs.uid;
-                    break;
-                case EnumEnvir.Prod:
-                    curUid = prodConfigs.uid;
-                    break;
-                default:
-                    curUid = fatConfigs.uid;
-            }
-
-            document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = curUid;
+            document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
             document.getElementById('MainContentPlaceHolder_ctl00_btnCorpHotelNewRESERVE').click();
         }
         else if (go) {
             go.click(); //确认用户信息的页面，相当于点击“请确认用户信息, 开始预订/查询!”按钮
+        }
+    }
+
+    // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
+    function loginTo1308() {
+        //fat4的signinview.aspx需要跳转到fat47
+        if (window.location.href.indexOf('fat4') != -1 && window.location.href.indexOf('fat47') == -1) {
+            window.location.href = window.location.href.replace('fat4', 'fat47');
+            return;
+        }
+
+        var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
+        if (userValue) {
+            document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
+            document.getElementById('MainContentPlaceHolder_ctl00_btnRequestLog').click();
         }
     }
 
@@ -281,36 +301,47 @@ $(function () {
     }
 
     // 获取当前配置的模块号
-    function getCurModeCode() {
-        switch (curEnvir) {
-            case EnumEnvir.Fat:
-                return fatConfigs.modeCode;
-                break;
-            case EnumEnvir.Uat:
-                return uatConfigs.modeCode;
-                break;
-            case EnumEnvir.Prod:
-                return prodConfigs.modeCode;
-                break;
-            default:
-                return fatConfigs.modeCode;
-        }
-    }
+    //function getCurModeCode() {
+    //    switch (curEnvir) {
+    //        case EnumEnvir.Fat:
+    //            return fatConfigs.modeCode;
+    //            break;
+    //        case EnumEnvir.Uat:
+    //            return uatConfigs.modeCode;
+    //            break;
+    //        case EnumEnvir.Prod:
+    //            return prodConfigs.modeCode;
+    //            break;
+    //        default:
+    //            return fatConfigs.modeCode;
+    //    }
+    //}
 
     // 获取当前配置的主模块号
     function getCurSubModeCode() {
         switch (curEnvir) {
             case EnumEnvir.Fat:
                 return fatConfigs.subModeCode;
-                break;
             case EnumEnvir.Uat:
                 return uatConfigs.subModeCode;
-                break;
             case EnumEnvir.Prod:
                 return prodConfigs.subModeCode;
-                break;
             default:
                 return fatConfigs.subModeCode;
+        }
+    }
+
+    // 获取Uid
+    function getUid() {
+        switch (curEnvir) {
+            case EnumEnvir.Fat:
+                return fatConfigs.uid;
+            case EnumEnvir.Uat:
+                return uatConfigs.uid;
+            case EnumEnvir.Prod:
+                return prodConfigs.uid;
+            default:
+                return fatConfigs.uid;
         }
     }
 
