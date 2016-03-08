@@ -166,5 +166,4 @@ PresentationLayer/DomesticHotelBookOffSite/Config/Log.config
 PresentationLayer/DomesticHotelBookOffSite/Config/Cache.config
 PresentationLayer/DomesticHotelBookOffSite/Config/Dal.config
 PresentationLayer/DomesticHotelBookOffSite/Web.config
-myGitHubSSHKey
 *.mark
