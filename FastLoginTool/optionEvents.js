@@ -6,16 +6,19 @@ window.onload = function () {
     var defaultEkey_fat_uat = '';
     var defaultModeCode_fat_uat = '7669';
     var defaultUid_fat_uat = 'hoteltest';
+    var defaultSubModeCode_fat_uat = 0;
 
     document.getElementById("fat_eid").value = localStorage.getItem('fat_eid') == null ? defaultEid_fat_uat : localStorage.getItem('fat_eid');
     document.getElementById("fat_ekey").value = localStorage.getItem('fat_ekey') == null ? defaultEkey_fat_uat : localStorage.getItem('fat_ekey');
     document.getElementById("fat_uid").value = localStorage.getItem('fat_uid') == null ? defaultUid_fat_uat : localStorage.getItem('fat_uid');
-    setSelectValue('fat_mode_selector', localStorage.getItem('fat_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('fat_modeCode'));
+    setSelectValue('fat_mode_selector', localStorage.getItem('fat_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('fat_modeCode'), true);
+    setSelectValue('fat_submode_selector', localStorage.getItem('fat_subModeCode') == null ? defaultSubModeCode_fat_uat : localStorage.getItem('fat_subModeCode'));
 
     document.getElementById("uat_eid").value = localStorage.getItem('uat_eid') == null ? defaultEid_fat_uat : localStorage.getItem('uat_eid');
     document.getElementById("uat_ekey").value = localStorage.getItem('uat_ekey') == null ? defaultEkey_fat_uat : localStorage.getItem('uat_ekey');
     document.getElementById("uat_uid").value = localStorage.getItem('uat_uid') == null ? defaultUid_fat_uat : localStorage.getItem('uat_uid');
-    setSelectValue('uat_mode_selector', localStorage.getItem('uat_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('uat_modeCode'));
+    setSelectValue('uat_mode_selector', localStorage.getItem('uat_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('uat_modeCode'), true);
+    setSelectValue('uat_submode_selector', localStorage.getItem('uat_subModeCode') == null ? defaultSubModeCode_fat_uat : localStorage.getItem('uat_subModeCode'));
 
     //var defaultEid_prod = 'y_qin';          //默认是秦媛的~\(≧▽≦)/~
     //var defaultEkey_prod = 'LM20081206)';
@@ -27,11 +30,13 @@ window.onload = function () {
     var defaultEkey_prod = '';
     var defaultModeCode_prod = '';
     var defaultUid_prod = '';
+    var defaultSubModeCode_prod = '';
 
     document.getElementById("prod_eid").value = localStorage.getItem('prod_eid') == null ? defaultEid_prod : localStorage.getItem('prod_eid');
     document.getElementById("prod_ekey").value = localStorage.getItem('prod_ekey') == null ? defaultEkey_prod : localStorage.getItem('prod_ekey');
     document.getElementById("prod_uid").value = localStorage.getItem('prod_uid') == null ? defaultUid_prod : localStorage.getItem('prod_uid');
-    setSelectValue('prod_mode_selector', localStorage.getItem('prod_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('prod_modeCode'));
+    setSelectValue('prod_mode_selector', localStorage.getItem('prod_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('prod_modeCode'), true);
+    setSelectValue('prod_submode_selector', localStorage.getItem('prod_subModeCode') == null ? defaultSubModeCode_prod : localStorage.getItem('prod_subModeCode'));
 }
 
 // 保存按钮选中后，把所有配置信息保存到localStorage中
@@ -40,16 +45,19 @@ document.getElementById("btn_save").addEventListener("click", function () {
     localStorage.setItem('fat_ekey', document.getElementById("fat_ekey").value);
     localStorage.setItem('fat_modeCode', getSelectedValue('fat_mode_selector'));
     localStorage.setItem('fat_uid', document.getElementById("fat_uid").value);
+    localStorage.setItem('fat_subModeCode', getSelectedValue('fat_submode_selector'));
 
     localStorage.setItem('uat_eid', document.getElementById("uat_eid").value);
     localStorage.setItem('uat_ekey', document.getElementById("uat_ekey").value);
     localStorage.setItem('uat_modeCode', getSelectedValue('uat_mode_selector'));
     localStorage.setItem('uat_uid', document.getElementById("uat_uid").value);
+    localStorage.setItem('uat_subModeCode', getSelectedValue('uat_submode_selector'));
 
     localStorage.setItem('prod_eid', document.getElementById("prod_eid").value);
     localStorage.setItem('prod_ekey', document.getElementById("prod_ekey").value);
     localStorage.setItem('prod_modeCode', getSelectedValue('prod_mode_selector'));
     localStorage.setItem('prod_uid', document.getElementById("prod_uid").value);
+    localStorage.setItem('prod_subModeCode', getSelectedValue('prod_submode_selector'));
 
     document.getElementById('span_msg').style.visibility = 'visible';
     setTimeout(function () {

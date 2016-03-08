@@ -3,20 +3,25 @@
 // 获取下拉框的当前选中值
 function getSelectedValue(selectorid) {
     var selector = document.getElementById(selectorid);
-    if (selector) {
+    if (selector &&
+        selector.children.length > 0 &&
+        selector.children[selector.selectedIndex] != null) {
         return selector.children[selector.selectedIndex].value;
     }
+    else return '';
 }
 
 // 设置下拉框的值
-function setSelectValue(selectorid, value) {
+function setSelectValue(selectorid, value, needFireEvent) {
     var selector = document.getElementById(selectorid);
-    if (selector) {
+    if (selector && !selector.disabled) {
         for (var i = 0; i < selector.children.length; i++) {
             var child = selector.children[i];
             if (child.value == value) {
                 child.selected = "true";
-                fireEvents(selector, 'MouseEvents', 'change');
+                if (needFireEvent == true) {
+                    fireEvents(selector, 'MouseEvents', 'change');
+                }
                 break;
             }
         }
@@ -70,8 +75,10 @@ function setLabelForeColor(labelid, color) {
 }
 
 // 手动触发控件事件
-function fireEvents(fireOnThis, events, eventType) {
-    var evObj = document.createEvent(events);
-    evObj.initEvent(eventType, true, false);
-    fireOnThis.dispatchEvent(evObj);
+function fireEvents(fireControll, events, eventType) {
+    if (fireControll) {
+        var evObj = document.createEvent(events);
+        evObj.initEvent(eventType, true, false);
+        fireControll.dispatchEvent(evObj);
+    }
 }

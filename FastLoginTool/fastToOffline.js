@@ -28,6 +28,13 @@ $(function () {
         Fat47: 'Fat47'
     }
 
+    var EnumModeCode = {
+        m7669: '7669',
+        m1308: '371121',
+        m1477: '1477',
+        m1199: '1199'
+    }
+
     var curEnvir = ''; 			//保存当前环境的变量
     var curFatSys = '';         //保存当前fat登录系统是老版还是新版（fat47）
     var isLoginAgain4Prod = false; //是否是生产环境下的二次登录
@@ -71,7 +78,7 @@ $(function () {
                 login();
                 break;
             case EnumPageType.EidHomePage:
-                home();
+                loginToMode();
                 break;
             case EnumPageType.SignInView:
                 offlineLogin();
@@ -187,8 +194,27 @@ $(function () {
         }
     }
 
+    // 登录到指定模块
+    function loginToMode() {
+        var modeCode = getCurModeCode();
+        switch (modeCode) {
+            case EnumModeCode.m7669:
+                loginTo7669();
+                return;
+            case EnumModeCode.m1308:
+                loginTo1308();
+                return;
+            case EnumModeCode.m1477:
+                return;
+            case EnumModeCode.m1199:
+                return;
+            break;
+            default:
+        }
+    }
+
     // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
-    function home() {
+    function loginTo7669() {
         switch (curEnvir) {
             case EnumEnvir.Fat:
                 if (curFatSys == EnumFatLoginSystem.CII) {
@@ -206,6 +232,11 @@ $(function () {
             default:
                 window.location = "/cii/share/shortcut.asp?modulecode=" + fatConfigs.modeCode;
         }
+    }
+
+    // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
+    function loginTo1308() {
+        alert('loginTo1308');
     }
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
@@ -246,6 +277,40 @@ $(function () {
     // 关闭当前UID的提示信息页面
     function closeMessage() {
         window.close();
+    }
+
+    // 获取当前配置的模块号
+    function getCurModeCode() {
+        switch (curEnvir) {
+            case EnumEnvir.Fat:
+                return fatConfigs.modeCode;
+                break;
+            case EnumEnvir.Uat:
+                curUid = uatConfigs.modeCode;
+                break;
+            case EnumEnvir.Prod:
+                curUid = prodConfigs.modeCode;
+                break;
+            default:
+                curUid = fatConfigs.modeCode;
+        }
+    }
+
+    // 获取当前配置的主模块号
+    function getCurSubModeCode() {
+        switch (curEnvir) {
+            case EnumEnvir.Fat:
+                return fatConfigs.subModeCode;
+                break;
+            case EnumEnvir.Uat:
+                curUid = uatConfigs.subModeCode;
+                break;
+            case EnumEnvir.Prod:
+                curUid = prodConfigs.subModeCode;
+                break;
+            default:
+                curUid = fatConfigs.subModeCode;
+        }
     }
 
     /* -------------------------------------------------- 函数定义end --------------------------------------------*/
