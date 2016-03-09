@@ -40,30 +40,17 @@ window.onload = function () {
 }
 
 // 保存按钮选中后，把所有配置信息保存到localStorage中
-document.getElementById("btn_save").addEventListener("click", function () {
-    localStorage.setItem('fat_eid', document.getElementById("fat_eid").value);
-    localStorage.setItem('fat_ekey', document.getElementById("fat_ekey").value);
-    localStorage.setItem('fat_modeCode', getSelectedValue('fat_mode_selector'));
-    localStorage.setItem('fat_uid', document.getElementById("fat_uid").value);
-    localStorage.setItem('fat_subModeCode', getSelectedValue('fat_submode_selector'));
+//document.getElementById("btn_save").addEventListener("click", function () {
+    
+//    saveFatConfigs('fat');
+//    saveFatConfigs('uat');
+//    saveFatConfigs('prod');
 
-    localStorage.setItem('uat_eid', document.getElementById("uat_eid").value);
-    localStorage.setItem('uat_ekey', document.getElementById("uat_ekey").value);
-    localStorage.setItem('uat_modeCode', getSelectedValue('uat_mode_selector'));
-    localStorage.setItem('uat_uid', document.getElementById("uat_uid").value);
-    localStorage.setItem('uat_subModeCode', getSelectedValue('uat_submode_selector'));
-
-    localStorage.setItem('prod_eid', document.getElementById("prod_eid").value);
-    localStorage.setItem('prod_ekey', document.getElementById("prod_ekey").value);
-    localStorage.setItem('prod_modeCode', getSelectedValue('prod_mode_selector'));
-    localStorage.setItem('prod_uid', document.getElementById("prod_uid").value);
-    localStorage.setItem('prod_subModeCode', getSelectedValue('prod_submode_selector'));
-
-    document.getElementById('span_msg').style.visibility = 'visible';
-    setTimeout(function () {
-        document.getElementById('span_msg').style.visibility = 'hidden';
-    }, 1500);
-});
+//    document.getElementById('span_msg').style.visibility = 'visible';
+//    setTimeout(function () {
+//        document.getElementById('span_msg').style.visibility = 'hidden';
+//    }, 1500);
+//});
 
 // #region 模块号改变后，子模块的联动效果
 document.getElementById("fat_mode_selector").addEventListener("change", function () {
@@ -76,5 +63,32 @@ document.getElementById("uat_mode_selector").addEventListener("change", function
 
 document.getElementById("prod_mode_selector").addEventListener("change", function () {
     selectorCouplingEvent("prod_mode_selector", "prod_submode_selector", "prod_submode_label");
+});
+// #endgrion
+
+// #region 保存配置信息到localStorage中
+function saveFatConfigs(envir) {
+    localStorage.setItem(envir + '_eid', document.getElementById(envir + '_eid').value);
+    localStorage.setItem(envir + '_ekey', document.getElementById(envir + '_ekey').value);
+    localStorage.setItem(envir + '_modeCode', getSelectedValue(envir + '_mode_selector'));
+    localStorage.setItem(envir + '_uid', document.getElementById(envir + '_uid').value);
+    localStorage.setItem(envir + '_subModeCode', getSelectedValue(envir + '_submode_selector'));
+}
+// #endgrion
+
+// #region 为快速登录按钮声明单击事件，让其创建一个新窗口并迅速跳到指定模块
+document.getElementById("fat_fastlogin_btn").addEventListener("click", function () {
+    saveFatConfigs('fat');
+    window.open("http://service.fat4.qa.nt.ctripcorp.com/cii/cii.asp");
+});
+
+document.getElementById("uat_fastlogin_btn").addEventListener("click", function () {
+    saveFatConfigs('uat');
+    window.open("http://service.uat.qa.nt.ctripcorp.com/cii/cii.asp");
+});
+
+document.getElementById("prod_fastlogin_btn").addEventListener("click", function () {
+    saveFatConfigs('prod');
+    window.open("http://server.sh.ctriptravel.com/sh_service/default.htm");
 });
 // #endgrion

@@ -268,7 +268,10 @@ $(function () {
 
     // 跳转到内层页面的内层模块（目前只用于offline海外酒店）
     function jumpToInnerMode() {
-        window.location.href = '/Corp-Booking-OfflineHotelIntl/HotelSearch.aspx';
+        var curSubMode = getCurSubModeCode();
+        if (curSubMode == EnumSubModeCode.offlineOverSea) {
+            window.location.href = '/Corp-Booking-OfflineHotelIntl/HotelSearch.aspx';
+        }
     }
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
@@ -323,7 +326,7 @@ $(function () {
             case EnumEnvir.Prod:
                 return prodConfigs.subModeCode;
             default:
-                return fatConfigs.subModeCode;
+                return '';
         }
     }
 
@@ -337,7 +340,7 @@ $(function () {
             case EnumEnvir.Prod:
                 return prodConfigs.uid;
             default:
-                return fatConfigs.uid;
+                return '';
         }
     }
 
