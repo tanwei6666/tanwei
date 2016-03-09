@@ -39,19 +39,6 @@ window.onload = function () {
     setSelectValue('prod_submode_selector', localStorage.getItem('prod_subModeCode') == null ? defaultSubModeCode_prod : localStorage.getItem('prod_subModeCode'));
 }
 
-// 保存按钮选中后，把所有配置信息保存到localStorage中
-//document.getElementById("btn_save").addEventListener("click", function () {
-    
-//    saveFatConfigs('fat');
-//    saveFatConfigs('uat');
-//    saveFatConfigs('prod');
-
-//    document.getElementById('span_msg').style.visibility = 'visible';
-//    setTimeout(function () {
-//        document.getElementById('span_msg').style.visibility = 'hidden';
-//    }, 1500);
-//});
-
 // #region 模块号改变后，子模块的联动效果
 document.getElementById("fat_mode_selector").addEventListener("change", function () {
     selectorCouplingEvent("fat_mode_selector", "fat_submode_selector", "fat_submode_label");

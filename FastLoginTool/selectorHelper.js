@@ -53,6 +53,8 @@ function selectorCouplingEvent(parentSelectorId, childSelectorId, labelid) {
             clearOptions(childSelectorId);
             subModeSelector.appendChild(createOption('国内酒店预订', 0));
             subModeSelector.appendChild(createOption('海外酒店预订', 1));
+            subModeSelector.appendChild(createOption('国内机票预订', 3));
+            subModeSelector.appendChild(createOption('海外机票预订', 4));
 
             subModeSelector.disabled = false;
             setLabelForeColor(labelid, 'black');

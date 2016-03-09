@@ -38,9 +38,11 @@ $(function () {
     }
 
     var EnumSubModeCode = {
-        offlineDomestic: '0',
-        offlineOverSea: '1',
-        bookingProcess: '2'     //1308
+        offlineDomesticHotel: '0',
+        offlineOverSeaHotel: '1',
+        bookingProcess: '2',    //1308
+        offlineDomesticFlight: '3',
+        offlineOverSeaFlight: '4'
     }
 
     var curEnvir = ''; 			//保存当前环境的变量
@@ -252,14 +254,20 @@ $(function () {
     function jumpToSubMode() {
         var curSubMode = getCurSubModeCode();
         switch (curSubMode) {
-            case EnumSubModeCode.offlineDomestic:
-                loginToOffline();
+            case EnumSubModeCode.offlineDomesticHotel:
+                loginToOfflineHotel();
                 break;
-            case EnumSubModeCode.offlineOverSea:
-                loginToOffline();   //先登国内，再跳海外
+            case EnumSubModeCode.offlineOverSeaHotel:
+                loginToOfflineHotel();   //先登国内，再跳海外
                 break;
             case EnumSubModeCode.bookingProcess:
                 loginTo1308();
+                break;
+            case EnumSubModeCode.offlineDomesticFlight:
+                loginToOfflineDomesticFlight();
+                break;
+            case EnumSubModeCode.offlineOverSeaFlight:
+                loginToOfflineOverSeaFlight();
                 break;
             default:
                 break;
@@ -269,13 +277,13 @@ $(function () {
     // 跳转到内层页面的内层模块（目前只用于offline海外酒店）
     function jumpToInnerMode() {
         var curSubMode = getCurSubModeCode();
-        if (curSubMode == EnumSubModeCode.offlineOverSea) {
+        if (curSubMode == EnumSubModeCode.offlineOverSeaHotel) {
             window.location.href = '/Corp-Booking-OfflineHotelIntl/HotelSearch.aspx';
         }
     }
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
-    function loginToOffline() {
+    function loginToOfflineHotel() {
         //fat47的signinview.aspx需要跳转到fat4
         if (window.location.href.indexOf('fat47') != -1) {
             window.location.href = window.location.href.replace('fat47', 'fat4');
@@ -308,6 +316,24 @@ $(function () {
         if (userValue) {
             document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
             document.getElementById('MainContentPlaceHolder_ctl00_btnRequestLog').click();
+        }
+    }
+
+    // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“国内机票”按钮
+    function loginToOfflineDomesticFlight() {
+        var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
+        if (userValue) {
+            document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
+            document.getElementById('MainContentPlaceHolder_ctl00_btnLoginNet').click();
+        }
+    }
+
+    // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“国际机票”按钮
+    function loginToOfflineOverSeaFlight() {
+        var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
+        if (userValue) {
+            document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
+            document.getElementById('MainContentPlaceHolder_ctl00_btnCorpFlightIntRESERVE').click();
         }
     }
 
