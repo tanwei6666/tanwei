@@ -31,12 +31,14 @@ $(function () {
         Unknown: 'unknown'          //有的页面不分新版和老版，这种情况都归到此类
     }
 
-    var EnumModeCode = {
-        m7669: '7669',
-        m1308: '371121',
-        m1477: '1477',
-        m1199: '1199'
-    }
+    //var EnumModeCode = {
+    //    m7669: '7669',
+    //    m1308: '371121',
+    //    m1477: '1477',
+    //    m1199: '1199',
+    //    m5780: '5780',
+    //    m9217: '9217'
+    //}
 
     var EnumSubModeCode = {
         offlineDomesticHotel: '0',
