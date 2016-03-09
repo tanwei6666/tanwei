@@ -133,28 +133,28 @@ $(function () {
 
     //根据当前页面信息，返回当前是哪种页面
     function checkPageType() {
-        if (document.location.pathname == '/cii/cii.asp' || 					//fat,uat
-			document.location.pathname == '/sh_service/default.htm' || 		    //prod第一次登录
-			document.location.pathname == '/CII/order/offline_order_log.asp' || //fat47和prod第二次登录
-            document.location.pathname == '/offlineauthlogin/Login.aspx')       //fat47第一次登录	
+        if (strCompare(document.location.pathname, '/cii/cii.asp') || 					//fat,uat
+			strCompare(document.location.pathname, '/sh_service/default.htm') || 		    //prod第一次登录
+			strCompare(document.location.pathname, '/CII/order/offline_order_log.asp') || //fat47和prod第二次登录
+            strCompare(document.location.pathname, '/offlineauthlogin/Login.aspx'))       //fat47第一次登录	
             return EnumPageType.ServiceHomePage;
 
-        if (document.location.pathname == '/CII/share/home.asp' || 			    //fat,uat
-			document.location.pathname == '/cii/share/home.asp' ||              //prod
-            document.location.pathname == '/offlinehomepage/Index.aspx')        //fat47
+        if (strCompare(document.location.pathname, '/CII/share/home.asp') || 			    //fat,uat
+			strCompare(document.location.pathname, '/cii/share/home.asp') ||              //prod
+            strCompare(document.location.pathname, '/offlinehomepage/Index.aspx'))        //fat47
             return EnumPageType.EidHomePage;
 
-        if (document.location.pathname == '/offlinelogin/view/signinview.aspx')
+        if (strCompare(document.location.pathname, '/offlinelogin/view/signinview.aspx'))
             return EnumPageType.SignInView;
 
         //以后任何环境下如果有类似弹窗那种需要关闭的页面均纳入此类
         if (
-            document.location.pathname == '/cii/promptmessage/Readmessage.asp'      //fat,uat,prod的当前uid的提示信息页面
-            || document.location.pathname == '/caso/login'                          //讨厌的统一登录平台
-            || document.location.pathname == '/CII/share/messagebox.asp'            //登录出错的提示页面，烦躁，我关，我关，我关关关！←←←脑子发热，还是暂时别关了，不然自动登录失败时用户都不知道咋回事
+            strCompare(document.location.pathname, '/cii/promptmessage/Readmessage.asp')      //fat,uat,prod的当前uid的提示信息页面
+            || strCompare(document.location.pathname, '/caso/login')                          //讨厌的统一登录平台
+            || strCompare(document.location.pathname, '/CII/share/messagebox.asp')            //登录出错的提示页面，烦躁，我关，我关，我关关关！←←←脑子发热，还是暂时别关了，不然自动登录失败时用户都不知道咋回事
             )
             return EnumPageType.CloseWindowOnly;
-        if (document.location.pathname == '/CorpOfflineHotel/Search/HotelSearch.aspx') {    //offline国内站点页面
+        if (strCompare(document.location.pathname, '/CorpOfflineHotel/Search/HotelSearch.aspx')) {    //offline国内站点页面
             return EnumPageType.DomesticHotelSearch;
         }
     }
@@ -342,6 +342,13 @@ $(function () {
             default:
                 return '';
         }
+    }
+
+    // 字符串比较
+    function strCompare(str1, str2) {
+        var s1 = str1 + '';
+        var s2 = str2 + '';
+        return s1.toLowerCase() == s2.toLowerCase();
     }
 
     /* -------------------------------------------------- 函数定义end --------------------------------------------*/
