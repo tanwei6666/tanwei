@@ -15,7 +15,8 @@ $(function () {
         EidHomePage: 'EidHomePage',
         SignInView: 'SignInView',
         CloseWindowOnly: 'CloseWindowOnly',
-        DomesticHotelSearch: 'DomesticHotelSearch'  //国内站点页面，为跳海外站点做准备
+        DomesticHotelSearch: 'DomesticHotelSearch',  //国内站点页面，为跳海外站点做准备
+        Unknown: 'unknown'                           //不识别的页面
     }
 
     var EnumEnvir = {
@@ -49,7 +50,7 @@ $(function () {
     var curFatSys = '';         //保存当前fat登录系统是老版还是新版（fat47）
     var isLoginAgain4Prod = false; //是否是生产环境下的二次登录
 
-    var fatConfigs, uatConfigs, prodConfigs;
+    var fatConfigs, uatConfigs, prodConfigs, customConfigs;
 
     /* -------------------------------------------------- 环境配置end --------------------------------------------*/
 
@@ -68,6 +69,12 @@ $(function () {
         if (response.prodConfigs != null) {
             prodConfigs = response.prodConfigs;
         }
+        if (response.customConfigs != null) {
+            customConfigs = response.customConfigs;
+        }
+
+        //alert('closeCasoLogin1:' + (customConfigs.closeCasoLogin == 'true'));
+        //alert('closeMessageBox:' + customConfigs.closeMessageBox);
 
         checkEnvir();
         checkLoginSystem();
@@ -148,17 +155,30 @@ $(function () {
 
         if (strCompare(document.location.pathname, '/offlinelogin/view/signinview.aspx'))
             return EnumPageType.SignInView;
-
-        //以后任何环境下如果有类似弹窗那种需要关闭的页面均纳入此类
-        if (
-            strCompare(document.location.pathname, '/cii/promptmessage/Readmessage.asp')      //fat,uat,prod的当前uid的提示信息页面
-            || strCompare(document.location.pathname, '/caso/login')                          //讨厌的统一登录平台
-            || strCompare(document.location.pathname, '/CII/share/messagebox.asp')            //登录出错的提示页面，烦躁，我关，我关，我关关关！←←←脑子发热，还是暂时别关了，不然自动登录失败时用户都不知道咋回事
-            )
-            return EnumPageType.CloseWindowOnly;
+            
         if (strCompare(document.location.pathname, '/CorpOfflineHotel/Search/HotelSearch.aspx')) {    //offline国内站点页面
             return EnumPageType.DomesticHotelSearch;
         }
+
+        return returnAutoClosePage();
+    }
+
+    // 以后任何环境下如果有类似弹窗那种需要关闭的页面均纳入此类
+    function returnAutoClosePage() {
+        if (strCompare(document.location.pathname, '/cii/promptmessage/Readmessage.asp')) {     //fat,uat,prod的当前uid的提示信息页面
+            return EnumPageType.CloseWindowOnly;
+        }
+        if (customConfigs.closeCasoLogin == 'true') {                                           //讨厌的统一登录平台
+            if (strCompare(document.location.pathname, '/caso/login')) {
+                return EnumPageType.CloseWindowOnly;
+            }
+        }
+        if (customConfigs.closeMessageBox == 'true') {
+            if (strCompare(document.location.pathname, '/CII/share/messagebox.asp')) {          //登录出错的提示页面，烦躁，我关，我关，我关关关！
+                return EnumPageType.CloseWindowOnly;
+            }
+        }
+        return EnumPageType.Unknown;
     }
 
     // 如果当前页面是service首页，就自动输入eid并点击“登录”按钮。

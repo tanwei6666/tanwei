@@ -37,6 +37,9 @@ window.onload = function () {
     document.getElementById("prod_uid").value = localStorage.getItem('prod_uid') == null ? defaultUid_prod : localStorage.getItem('prod_uid');
     setSelectValue('prod_mode_selector', localStorage.getItem('prod_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('prod_modeCode'), true);
     setSelectValue('prod_submode_selector', localStorage.getItem('prod_subModeCode') == null ? defaultSubModeCode_prod : localStorage.getItem('prod_subModeCode'));
+
+    document.getElementById("chbox_closeCasoLogin").checked = localStorage.getItem('closeCasoLogin') == 'true';
+    document.getElementById("chbox_closeMessageBox").checked = localStorage.getItem('closeMessageBox') == 'true';
 }
 
 // #region 模块号改变后，子模块的联动效果
@@ -63,34 +66,46 @@ function saveFatConfigs(envir) {
 }
 // #endgrion
 
+//保存登录选项
+function saveCustomOptions() {
+    localStorage.setItem('closeCasoLogin', document.getElementById('chbox_closeCasoLogin').checked);
+    localStorage.setItem('closeMessageBox', document.getElementById('chbox_closeMessageBox').checked);
+}
+
 // #region 为快速登录按钮声明单击事件，让其创建一个新窗口并迅速跳到指定模块
 document.getElementById("fat_fastloginold_btn").addEventListener("click", function () {
     saveFatConfigs('fat');
+    saveCustomOptions();
     window.open("http://service.fat4.qa.nt.ctripcorp.com/cii/cii.asp");
 });
 
 document.getElementById("fat_fastloginnew_btn").addEventListener("click", function () {
     saveFatConfigs('fat');
+    saveCustomOptions();
     window.open("http://membersint.members.fat47.qa.nt.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 
 document.getElementById("uat_fastloginold_btn").addEventListener("click", function () {
     saveFatConfigs('uat');
+    saveCustomOptions();
     window.open("http://service.uat.qa.nt.ctripcorp.com/cii/cii.asp");
 });
 
 document.getElementById("uat_fastloginnew_btn").addEventListener("click", function () {
     saveFatConfigs('uat');
+    saveCustomOptions();
     window.open("http://membersint.members.uat.qa.nt.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 
 document.getElementById("prod_fastloginold_btn").addEventListener("click", function () {
     saveFatConfigs('prod');
+    saveCustomOptions();
     window.open("http://server.sh.ctriptravel.com/sh_service/default.htm");
 });
 
 document.getElementById("prod_fastloginnew_btn").addEventListener("click", function () {
     saveFatConfigs('prod');
+    saveCustomOptions();
     window.open("http://membersint.members.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 // #endgrion

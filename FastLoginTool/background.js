@@ -28,10 +28,16 @@ chrome.extension.onRequest.addListener(
                 subModeCode: localStorage.getItem('prod_subModeCode')
             };
 
+            var customConfigs = {
+                closeCasoLogin: localStorage.getItem('closeCasoLogin'),
+                closeMessageBox: localStorage.getItem('closeMessageBox'),
+            }
+
             sendResponse({
                 fatConfigs: fatConfigs,
                 uatConfigs: uatConfigs,
-                prodConfigs: prodConfigs
+                prodConfigs: prodConfigs,
+                customConfigs: customConfigs
             });
 
         }
