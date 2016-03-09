@@ -20,11 +20,6 @@ window.onload = function () {
     setSelectValue('uat_mode_selector', localStorage.getItem('uat_modeCode') == null ? defaultModeCode_fat_uat : localStorage.getItem('uat_modeCode'), true);
     setSelectValue('uat_submode_selector', localStorage.getItem('uat_subModeCode') == null ? defaultSubModeCode_fat_uat : localStorage.getItem('uat_subModeCode'));
 
-    //var defaultEid_prod = 'y_qin';          //默认是秦媛的~\(≧▽≦)/~
-    //var defaultEkey_prod = 'LM20081206)';
-    //var defaultModeCode_prod = '7669';
-    //var defaultUid_prod = '2106338901';     //默认是张曼的~\(≧▽≦)/~
-
     //生产环境还是不要设置默认值了..（但是开发还是可以设置的，哇嘎嘎~\(≧▽≦)/~）
     var defaultEid_prod = ''; 
     var defaultEkey_prod = '';
