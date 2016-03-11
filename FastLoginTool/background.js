@@ -10,7 +10,8 @@ chrome.extension.onRequest.addListener(
                 ekey: localStorage.getItem('fat_ekey'),
                 modeCode: localStorage.getItem('fat_modeCode'),
                 uid: localStorage.getItem('fat_uid'),
-                subModeCode: localStorage.getItem('fat_subModeCode')
+                subModeCode: localStorage.getItem('fat_subModeCode'),
+                fatEnvir: localStorage.getItem('fat_envir'),
             };
             var uatConfigs = {
                 eid: localStorage.getItem('uat_eid'),
@@ -31,6 +32,7 @@ chrome.extension.onRequest.addListener(
             var customConfigs = {
                 closeCasoLogin: localStorage.getItem('closeCasoLogin'),
                 closeMessageBox: localStorage.getItem('closeMessageBox'),
+                closeDialogDepartment: localStorage.getItem('closeDialogDepartment')
             }
 
             sendResponse({

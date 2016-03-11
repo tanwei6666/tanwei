@@ -180,6 +180,11 @@ $(function () {
                 return EnumPageType.CloseWindowOnly;
             }
         }
+        if (customConfigs.closeDialogDepartment == 'true') {                                    //不知道哪里的IIS错误，关掉关掉~！
+            if (document.location.pathname.indexOf('DialogDepartment') != -1) {
+                return EnumPageType.CloseWindowOnly;
+            }
+        }
         return EnumPageType.Unknown;
     }
 
@@ -206,7 +211,7 @@ $(function () {
             if (curEnvir == EnumEnvir.Fat || curEnvir == EnumEnvir.Uat) {   //因为prod与(fat,uat)的页面元素不太相同，这里还是分一下吧。T_T
                 var loginCase1 = document.getElementsByName('eid')[0] != null;
                 var loginCase2 = document.getElementsByName('logineid')[0] != null;
-                var loginCase3 = !loginCase1 && !loginCase2;
+                var loginCase3 = !loginCase1 && !loginCase2;                //这个判断方法十分危险，可能导致死循环，待后期改进
 
                 if (loginCase1) {
                     document.getElementsByName('eid')[0].value = id;
@@ -218,7 +223,7 @@ $(function () {
                     document.getElementsByName('btnLogin')[0].click();
                 } else if (loginCase3) {    //此情况为特殊情况，fat47登录offline时，成功登录后页面会“呆”住不跳转，此时让它再跳一次。
                     if (curEnvir == EnumEnvir.Fat) {
-                        window.location.href = 'http://inbound.fat4.qa.nt.ctripcorp.com/offlinelogin/view/signinview.aspx?Type=CORP_OFFRESERVE&module=7669';
+                        window.location.href = 'http://inbound.' + fatConfigs.fatEnvir + '.qa.nt.ctripcorp.com/offlinelogin/view/signinview.aspx?Type=CORP_OFFRESERVE&module=7669';
                     }
                 }
             } else if (curEnvir == EnumEnvir.Prod) {
@@ -306,9 +311,9 @@ $(function () {
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“酒店预订”按钮
     function loginToOfflineHotel() {
-        //fat47的signinview.aspx需要跳转到fat4
-        if (window.location.href.indexOf('fat47') != -1) {
-            window.location.href = window.location.href.replace('fat47', 'fat4');
+        //fat47的signinview.aspx需要跳转到当前的fat环境（如果当前fat环境不是fat47的话）
+        if (window.location.href.indexOf('fat47') != -1 && fatConfigs.fatEnvir != 'fat47') {
+            window.location.href = window.location.href.replace('fat47', fatConfigs.fatEnvir);
             return;
         }
 
@@ -325,12 +330,10 @@ $(function () {
 
     // 如果当前页面是员工登录后的首页，就自动输入7669模块号跳转
     function loginTo1308() {
-        //fat4,fat11的signinview.aspx需要跳转到fat47
-        if (window.location.href.indexOf('fat4') != -1 && window.location.href.indexOf('fat47') == -1) {
-            window.location.href = window.location.href.replace('fat4', 'fat47');
-            return;
-        } else if (window.location.href.indexOf('fat11') != -1) {
-            window.location.href = window.location.href.replace('fat11', 'fat47');
+        //fat其他环境的signinview.aspx需要跳转到fat47
+        if (curEnvir == EnumEnvir.Fat && window.location.href.indexOf('fat47') == -1) {
+            var curFatEnvir = getFatEnvirFromPostName(window.location.hostname);
+            window.location.href = window.location.href.replace(curFatEnvir, 'fat47');
             return;
         }
 
@@ -397,6 +400,15 @@ $(function () {
         var s1 = str1 + '';
         var s2 = str2 + '';
         return s1.toLowerCase() == s2.toLowerCase();
+    }
+
+    // 通过主机名寻找fat环境，比如：inbound.fat4.qa.nt.ctripcorp.com/ -> fat4
+    function getFatEnvirFromPostName(hostname) {
+        if (hostname != null && hostname != '') {
+            var fstPoint = hostname.indexOf('.');
+            var scdPoint = hostname.indexOf('.', fstPoint + 1);
+            return hostname.substring(fstPoint + 1, scdPoint);
+        }
     }
 
     /* -------------------------------------------------- 函数定义end --------------------------------------------*/
