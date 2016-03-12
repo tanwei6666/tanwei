@@ -31,15 +31,6 @@ $(function () {
         Unknown: 'unknown'          //有的页面不分新版和老版，这种情况都归到此类
     }
 
-    //var EnumModeCode = {
-    //    m7669: '7669',
-    //    m1308: '371121',
-    //    m1477: '1477',
-    //    m1199: '1199',
-    //    m5780: '5780',
-    //    m9217: '9217'
-    //}
-
     var EnumSubModeCode = {
         offlineDomesticHotel: '0',
         offlineOverSeaHotel: '1',
@@ -74,9 +65,6 @@ $(function () {
         if (response.customConfigs != null) {
             customConfigs = response.customConfigs;
         }
-
-        //alert('closeCasoLogin1:' + (customConfigs.closeCasoLogin == 'true'));
-        //alert('closeMessageBox:' + customConfigs.closeMessageBox);
 
         checkEnvir();
         checkLoginSystem();
@@ -244,7 +232,7 @@ $(function () {
         } else if (curFatSys == EnumLoginSystem.MembersInt) {   //新版不用分环境，好高兴~♪(^∇^*)
             document.getElementsByName('eid')[0].value = id;
             document.getElementsByName('pwd')[0].value = key;
-            document.getElementById('btnSubmit').click();
+            document.getElementById('btnSubmit').click();       //但是click后默认都跳fat4！(╯‵□′)╯︵┻━┻
         }
     }
 
@@ -346,6 +334,12 @@ $(function () {
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“国内机票”按钮
     function loginToOfflineDomesticFlight() {
+        //fat47的signinview.aspx需要跳转到当前的fat环境（如果当前fat环境不是fat47的话）
+        if (window.location.href.indexOf('fat47') != -1 && fatConfigs.fatEnvir != 'fat47') {
+            window.location.href = window.location.href.replace('fat47', fatConfigs.fatEnvir);
+            return;
+        }
+
         var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
         if (userValue) {
             document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();
@@ -355,6 +349,12 @@ $(function () {
 
     // 如果当前页面是Offline商旅预订页面，则输入uid，并点击“国际机票”按钮
     function loginToOfflineOverSeaFlight() {
+        //fat47的signinview.aspx需要跳转到当前的fat环境（如果当前fat环境不是fat47的话）
+        if (window.location.href.indexOf('fat47') != -1 && fatConfigs.fatEnvir != 'fat47') {
+            window.location.href = window.location.href.replace('fat47', fatConfigs.fatEnvir);
+            return;
+        }
+
         var userValue = document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue');
         if (userValue) {
             document.getElementById('MainContentPlaceHolder_ctl00_SignIn_UserValue').value = getUid();

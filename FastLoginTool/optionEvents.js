@@ -7,6 +7,25 @@ var EnumLoginVersion = {
     New: 'New'
 }
 
+var EnumModeCode = {
+    m7669: '7669',
+    m1308: '371121',
+    m1477: '1477',
+    m1199: '1199',
+    m5780: '5780',
+    m9217: '9217'
+}
+
+var EnumfatEnvir = {
+    fat2: 'fat2',
+    fat4: 'fat4',
+    fat11: 'fat11',
+    fat24: 'fat24',
+    fat25: 'fat25',
+    fat26: 'fat26',
+    fat47: 'fat47'
+}
+
 window.onload = function () {
     var defaultEid_fat_uat = 'ypcao';
     var defaultEkey_fat_uat = '';
@@ -44,6 +63,9 @@ window.onload = function () {
     document.getElementById("chbox_closeCasoLogin").checked = localStorage.getItem('closeCasoLogin') == 'true';
     document.getElementById("chbox_closeMessageBox").checked = localStorage.getItem('closeMessageBox') == 'true';
     document.getElementById("chbox_closeDialogDepartment").checked = localStorage.getItem('closeDialogDepartment') == 'true';
+
+    setNewFatLoginDisabled();
+    setOldFatLoginDisabled();
 }
 
 // #region 模块号改变后，子模块的联动效果
@@ -58,6 +80,50 @@ document.getElementById("uat_mode_selector").addEventListener("change", function
 document.getElementById("prod_mode_selector").addEventListener("change", function () {
     selectorCouplingEvent("prod_mode_selector", "prod_submode_selector", "prod_submode_label");
 });
+// #endgrion
+
+// #region 模块号和子模块改变后，判断当前模块是否支持新版登录
+document.getElementById("fat_mode_selector").addEventListener("change", setNewFatLoginDisabled);
+document.getElementById("fat_mode_selector").addEventListener("change", setOldFatLoginDisabled);
+
+document.getElementById("fat_envir_selector").addEventListener("change", setNewFatLoginDisabled);
+document.getElementById("fat_envir_selector").addEventListener("change", setOldFatLoginDisabled);
+
+//当前模块为1199，1477，9217，5780，1308时，设置新版快速登录的按钮为disabled（因为1199，1477，9217，1308在新版登录时都默认跳fat4，5780默认跳fat2）。
+function setNewFatLoginDisabled() {
+    var fat_fastloginnew_btn = document.getElementById('fat_fastloginnew_btn');
+    if (!fat_fastloginnew_btn)
+        return;
+
+    var mode = getSelectedValue('fat_mode_selector');
+    var fatEnvir = getSelectedValue('fat_envir_selector');
+    if (
+        (mode == EnumModeCode.m1199 && fatEnvir != EnumfatEnvir.fat4) ||
+        (mode == EnumModeCode.m1477 && fatEnvir != EnumfatEnvir.fat4) ||
+        (mode == EnumModeCode.m9217 && fatEnvir != EnumfatEnvir.fat4) ||
+        (mode == EnumModeCode.m1308 && fatEnvir != EnumfatEnvir.fat4)
+       ) {
+        fat_fastloginnew_btn.disabled = true;
+    } else if (mode == EnumModeCode.m5780 && fatEnvir != EnumfatEnvir.fat2) {
+        fat_fastloginnew_btn.disabled = true;
+    } else {
+        fat_fastloginnew_btn.disabled = false;
+    }
+}
+
+//当前模块为1308时，设置旧版快速登录的按钮为disabled
+function setOldFatLoginDisabled() {
+    var fat_fastloginold_btn = document.getElementById('fat_fastloginold_btn');
+    if (!fat_fastloginold_btn)
+        return;
+    var mode = getSelectedValue('fat_mode_selector');
+    var fatEnvir = getSelectedValue('fat_envir_selector');
+    if (mode == EnumModeCode.m1308 && fatEnvir != EnumfatEnvir.fat4) {
+        fat_fastloginold_btn.disabled = true;
+    } else {
+        fat_fastloginold_btn.disabled = false;
+    }
+}
 // #endgrion
 
 // #region 保存通用配置信息到localStorage中
