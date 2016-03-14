@@ -10,6 +10,7 @@ var EnumLoginVersion = {
 var EnumModeCode = {
     m7669: '7669',
     m1308: '371121',
+    m1404: '1404',
     m1477: '1477',
     m1199: '1199',
     m5780: '5780',
@@ -105,6 +106,8 @@ function setNewFatLoginDisabled() {
        ) {
         fat_fastloginnew_btn.disabled = true;
     } else if (mode == EnumModeCode.m5780 && fatEnvir != EnumfatEnvir.fat2) {
+        fat_fastloginnew_btn.disabled = true;
+    } else if (mode == EnumModeCode.m1404 && fatEnvir != EnumfatEnvir.fat47) {  // 机票1404新版登录只支持fat47
         fat_fastloginnew_btn.disabled = true;
     } else {
         fat_fastloginnew_btn.disabled = false;

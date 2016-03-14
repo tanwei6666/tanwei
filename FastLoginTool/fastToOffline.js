@@ -118,12 +118,12 @@ $(function () {
 
     // 检查当前的fat登录系统是老版还是新版（fat47）
     function checkLoginSystem() {
-        if (document.location.href.indexOf('CII') != -1
-            || document.location.href.indexOf('cii') != -1
+        var hrefUpStr = document.location.href.toUpperCase();
+        if (hrefUpStr.indexOf('CII') != -1
             || document.location.pathname == '/sh_service/default.htm'  //生产环境上老版本登录系统不带cii，是这个格式的
             ) {
             curFatSys = EnumLoginSystem.CII;
-        } else if (document.location.href.indexOf('membersint') != -1) {
+        } else if (hrefUpStr.indexOf('MEMBERSINT') != -1) {
             curFatSys = EnumLoginSystem.MembersInt;
         } else {
             curFatSys = EnumLoginSystem.Unknown;
@@ -132,13 +132,18 @@ $(function () {
 
     //根据当前页面信息，返回当前是哪种页面
     function checkPageType() {
-        if (strCompare(document.location.pathname, '/cii/cii.asp') || 					//fat,uat
+        ///Cii/Flight/Process/flt_orderlist.asp这个path对应两个页面：一个需要登录的页面，一个是真正的机票订单列表页面。所以这里才需要这样区分。
+        var is_fltOrderlist_loginPage = strCompare(document.location.pathname, '/Cii/Flight/Process/flt_orderlist.asp') 
+                                        && document.getElementsByName('logineid').length > 0;
+
+        if (strCompare(document.location.pathname, '/cii/cii.asp') || 					    //fat,uat
 			strCompare(document.location.pathname, '/sh_service/default.htm') || 		    //prod第一次登录
-			strCompare(document.location.pathname, '/CII/order/offline_order_log.asp') || //fat47和prod第二次登录
-            strCompare(document.location.pathname, '/offlineauthlogin/Login.aspx'))       //fat47第一次登录	
+			strCompare(document.location.pathname, '/CII/order/offline_order_log.asp') ||   //fat47和prod第二次登录
+            strCompare(document.location.pathname, '/offlineauthlogin/Login.aspx') ||       //fat47第一次登录	
+            is_fltOrderlist_loginPage)
             return EnumPageType.ServiceHomePage;
 
-        if (strCompare(document.location.pathname, '/CII/share/home.asp') || 			    //fat,uat
+        if (strCompare(document.location.pathname, '/CII/share/home.asp') || 			  //fat,uat
 			strCompare(document.location.pathname, '/cii/share/home.asp') ||              //prod
             strCompare(document.location.pathname, '/offlinehomepage/Index.aspx'))        //fat47
             return EnumPageType.EidHomePage;
