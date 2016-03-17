@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MyUtils
-{
+{   
     /// <summary>
     /// 异步编程时的工具类
     /// </summary>
