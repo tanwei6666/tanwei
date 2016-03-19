@@ -39,11 +39,16 @@ $(function () {
         offlineOverSeaFlight: '4'
     }
 
+    var EnumCookieWriteType = {
+        AddIfNotExist: '0',
+        AddAndReplace: '1'
+    }
+
     var curEnvir = ''; 			//保存当前环境的变量
     var curFatSys = '';         //保存当前fat登录系统是老版还是新版（fat47）
     var isLoginAgain4Prod = false; //是否是生产环境下的二次登录
 
-    var fatConfigs, uatConfigs, prodConfigs, customConfigs;
+    var fatConfigs, uatConfigs, prodConfigs, customConfigs, cookieConfigs;
 
     /* -------------------------------------------------- 环境配置end --------------------------------------------*/
 
@@ -56,21 +61,26 @@ $(function () {
         if (!response.pluginEnabled)
             return;
 
-        if (response.fatConfigs != null) {
+        if (response.fatConfigs) {
             fatConfigs = response.fatConfigs;
         }
-        if (response.uatConfigs != null) {
+        if (response.uatConfigs) {
             uatConfigs = response.uatConfigs;
         }
-        if (response.prodConfigs != null) {
+        if (response.prodConfigs) {
             prodConfigs = response.prodConfigs;
         }
-        if (response.customConfigs != null) {
+        if (response.customConfigs) {
             customConfigs = response.customConfigs;
+        }
+
+        if (response.cookieConfigs) {
+            cookieConfigs = response.cookieConfigs;
         }
 
         checkEnvir();
         checkLoginSystem();
+        writeCustomCookies();
         pageAutoRun();
     });
 
@@ -79,30 +89,6 @@ $(function () {
 
 
     /* -------------------------------------------------- 函数定义start ------------------------------------------*/
-
-    // 根据不同页面的内容执行不同脚本，目的就是为了一气呵成登录到offline站点页
-    function pageAutoRun() {
-        var curPageType = checkPageType();
-        switch (curPageType) {
-            case EnumPageType.ServiceHomePage:
-                login();
-                break;
-            case EnumPageType.EidHomePage:
-                jumpToMode();
-                break;
-            case EnumPageType.SignInView:
-                jumpToSubMode();
-                break;
-            case EnumPageType.DomesticHotelSearch:
-                jumpToInnerMode();
-                break;
-            case EnumPageType.CloseWindowOnly:
-                closeMessage();
-                break;
-            default:
-                break;
-        }
-    }
 
     // 检查当前页面的环境
     function checkEnvir() {
@@ -130,6 +116,58 @@ $(function () {
             curFatSys = EnumLoginSystem.MembersInt;
         } else {
             curFatSys = EnumLoginSystem.Unknown;
+        }
+    }
+
+    // 为设置的页面添加指定的cookies
+    function writeCustomCookies() {
+        if (cookieConfigs) {
+            var ckValuePairs = getCookieValuePairs(cookieConfigs.customCookies);
+            var cksWriteType = cookieConfigs.cookiesWriteType;
+            var cksWriteUrls = cookieConfigs.cookiesWriteUrls;
+
+            var needWriteCookies = checkCurPageForWriteCookie(document.location.href, cksWriteUrls);
+            if (needWriteCookies) {
+                for (var i = 0; i < ckValuePairs.length; i++) {
+                    var cookiePair = ckValuePairs[i];
+                    switch (cksWriteType) {
+                        case EnumCookieWriteType.AddIfNotExist:
+                            if (getCookie(cookiePair.key) == '') {
+                                setCookie(cookiePair.key, cookiePair.value);
+                            }
+                            break;
+                        case EnumCookieWriteType.AddAndReplace:
+                            setCookie(cookiePair.key, cookiePair.value);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    // 根据不同页面的内容执行不同脚本，目的就是为了一气呵成登录到offline站点页
+    function pageAutoRun() {
+        var curPageType = checkPageType();
+        switch (curPageType) {
+            case EnumPageType.ServiceHomePage:
+                login();
+                break;
+            case EnumPageType.EidHomePage:
+                jumpToMode();
+                break;
+            case EnumPageType.SignInView:
+                jumpToSubMode();
+                break;
+            case EnumPageType.DomesticHotelSearch:
+                jumpToInnerMode();
+                break;
+            case EnumPageType.CloseWindowOnly:
+                closeMessage();
+                break;
+            default:
+                break;
         }
     }
 

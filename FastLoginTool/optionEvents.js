@@ -69,6 +69,8 @@ window.onload = function () {
     setOldFatLoginDisabled();
 
     document.getElementById('addCookie_txt').value = localStorage.getItem('customCookies') == null ? '' : localStorage.getItem('customCookies');
+    setSelectValue('cookie_writeType_selector', localStorage.getItem('cookiesWriteType') == null ? 0 : localStorage.getItem('cookiesWriteType'));
+    document.getElementById('addCookiePage_txt').value = localStorage.getItem('cookiesWriteUrls') == null ? '' : localStorage.getItem('cookiesWriteUrls');
 }
 
 // #region 模块号改变后，子模块的联动效果
@@ -156,8 +158,14 @@ function saveCustomOptions() {
 //保存自动跳转时需要额外添加的cookie
 function saveCustomCookies() {
     var cookieTxt = document.getElementById('addCookie_txt');
-    if (cookieTxt != null && cookieTxt.value != '') {
+    if (cookieTxt != null) {
         localStorage.setItem('customCookies', cookieTxt.value);
+        localStorage.setItem('cookiesWriteType', getSelectedValue('cookie_writeType_selector'));
+
+        var addCookiePage_txt = document.getElementById('addCookiePage_txt');
+        if (addCookiePage_txt != null) {
+            localStorage.setItem('cookiesWriteUrls', addCookiePage_txt.value);
+        }
     }
 }
 

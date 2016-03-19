@@ -37,12 +37,19 @@ chrome.extension.onRequest.addListener(
                 closeDialogDepartment: localStorage.getItem('closeDialogDepartment')
             }
 
+            var cookieConfigs = {
+                customCookies: localStorage.getItem('customCookies'),
+                cookiesWriteType: localStorage.getItem('cookiesWriteType'),
+                cookiesWriteUrls: localStorage.getItem('cookiesWriteUrls')
+            }
+
             sendResponse({
                 pluginEnabled: pluginSettings.enable,
                 fatConfigs: fatConfigs,
                 uatConfigs: uatConfigs,
                 prodConfigs: prodConfigs,
-                customConfigs: customConfigs
+                customConfigs: customConfigs,
+                cookieConfigs: cookieConfigs
             });
 
         }
