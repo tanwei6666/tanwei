@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["*://*.ctriptravel.com/*", "*://*.ctripcorp.com/*", "http://localhost/*"],
-      "js": ["util.js", "fastToOffline.js"]
+      "js": ["js/util.js", "js/fastToOffline.js"]
     }
   ]
 }
