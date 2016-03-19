@@ -1,5 +1,16 @@
 <html>
-<head><title>登录小旋风</title></head>
+<head>
+    <title>登录小旋风</title>
+    <style>
+        .tab {
+            color: black;
+            font-size:12px;
+                /*t-family:;
+            text-algn: 对齐方式(center，left,right);
+            background-color: 背景颜色;*/
+        }
+    </style>
+</head>
 <body id="body_options">
     <fieldset style="width: 270px; float: left">
         <legend>fat配置</legend>
@@ -90,9 +101,9 @@
     <br />
     <br />
     <br />
-    <fieldset style="width: 530px">
+    <fieldset style="width: 878px">
         <legend>登录选项</legend>
-        <table>
+        <table class="tab">
             <tbody>
                 <tr>
                     <td>
@@ -118,6 +129,45 @@
                 </tr>
             </tbody>
         </table>
+        
+    </fieldset>
+    <br />
+    <br />
+    <fieldset style="width: 878px">
+        <legend>开发者工具</legend>
+        <table class="tab">
+            <tbody>
+                <tr>
+                    <td>
+                        添加cookie<span style="color:darkgray">（key=value形式，多个值以分号分割）</span>：
+                    </td>
+                    <td>
+                        添加方式：
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="text" id="addCookie_txt" name="addCookie_txt" style="width: 676px; margin-bottom:5px;" />
+                    </td>
+                    <td>
+                        <select id="cookie_writeType_selector">
+                            <option value="0" selected="selected">无值时添加</option>
+                            <option value="1">强制添加并替换</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        添加cookie所在的页面URL<span style="color:darkgray">（非必填，为空时代表添加至所有跳转的页面中）</span>：
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="text" id="addCookiePage_txt" name="addCookiePage_txt" style="width: 876px" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </fieldset>
     <br />
     <span id="span_tip" style="color:green">温馨提示：清除浏览器缓存和插件数据时，本页面的数据可能会被清空。</span>
@@ -138,7 +188,8 @@
     <br />
     <label style="color: darkgray">版本：1.4</label>
     <label style="margin-left: 280px; color: darkgray">若有疑问，需求，或其它好的建议，欢迎访问：<a href="http://conf.ctripcorp.com/pages/viewpage.action?pageId=83145144">Confluence文档</a>，软件更新后也会第一时间发布在此文档中。</label>
-        <script type="text/javascript" src="selectorHelper.js"></script>
-        <script type="text/javascript" src="optionEvents.js"></script>
+    <script type="text/javascript" src="util.js"></script>
+    <script type="text/javascript" src="selectorHelper.js"></script>
+    <script type="text/javascript" src="optionEvents.js"></script>
 </body>
 </html>

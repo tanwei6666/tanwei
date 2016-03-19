@@ -403,13 +403,6 @@ $(function () {
         }
     }
 
-    // 字符串比较
-    function strCompare(str1, str2) {
-        var s1 = str1 + '';
-        var s2 = str2 + '';
-        return s1.toLowerCase() == s2.toLowerCase();
-    }
-
     // 通过主机名寻找fat环境，比如：inbound.fat4.qa.nt.ctripcorp.com/ -> fat4
     function getFatEnvirFromPostName(hostname) {
         if (hostname != null && hostname != '') {

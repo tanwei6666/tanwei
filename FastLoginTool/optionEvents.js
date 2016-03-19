@@ -67,6 +67,8 @@ window.onload = function () {
 
     setNewFatLoginDisabled();
     setOldFatLoginDisabled();
+
+    document.getElementById('addCookie_txt').value = localStorage.getItem('customCookies') == null ? '' : localStorage.getItem('customCookies');
 }
 
 // #region 模块号改变后，子模块的联动效果
@@ -151,11 +153,20 @@ function saveCustomOptions() {
     localStorage.setItem('closeDialogDepartment', document.getElementById('chbox_closeDialogDepartment').checked);
 }
 
+//保存自动跳转时需要额外添加的cookie
+function saveCustomCookies() {
+    var cookieTxt = document.getElementById('addCookie_txt');
+    if (cookieTxt != null && cookieTxt.value != '') {
+        localStorage.setItem('customCookies', cookieTxt.value);
+    }
+}
+
 // #region 为快速登录按钮声明单击事件，让其创建一个新窗口并迅速跳到指定模块
 document.getElementById("fat_fastloginold_btn").addEventListener("click", function () {
     saveCommonEnvirConfigs('fat');
     saveFatEnvirConfigs();
     saveCustomOptions();
+    saveCustomCookies();
     jumpToFatLoginPage(EnumLoginVersion.Old);
 });
 
@@ -163,6 +174,7 @@ document.getElementById("fat_fastloginnew_btn").addEventListener("click", functi
     saveCommonEnvirConfigs('fat');
     saveFatEnvirConfigs();
     saveCustomOptions();
+    saveCustomCookies();
     jumpToFatLoginPage(EnumLoginVersion.New);
 });
 
@@ -175,18 +187,21 @@ document.getElementById("uat_fastloginold_btn").addEventListener("click", functi
 document.getElementById("uat_fastloginnew_btn").addEventListener("click", function () {
     saveCommonEnvirConfigs('uat');
     saveCustomOptions();
+    saveCustomCookies();
     window.open("http://membersint.members.uat.qa.nt.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 
 document.getElementById("prod_fastloginold_btn").addEventListener("click", function () {
     saveCommonEnvirConfigs('prod');
     saveCustomOptions();
+    saveCustomCookies();
     window.open("http://server.sh.ctriptravel.com/sh_service/default.htm");
 });
 
 document.getElementById("prod_fastloginnew_btn").addEventListener("click", function () {
     saveCommonEnvirConfigs('prod');
     saveCustomOptions();
+    saveCustomCookies();
     window.open("http://membersint.members.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 // #endgrion
@@ -210,6 +225,4 @@ function jumpToFatLoginPage(curLoginVersion) {
     } else {
         alert('请选择一个fat环境！');
     }
-
-    
 }
