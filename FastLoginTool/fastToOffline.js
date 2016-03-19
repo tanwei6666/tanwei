@@ -53,6 +53,9 @@ $(function () {
 
     // 由于localStorage是基于域名的，所以content_scripts不能直接读取localStorage，而是需要通过与background通信获取而来。
     chrome.extension.sendRequest({ type: 'getLocalStorage' }, function (response) {
+        if (!response.pluginEnabled)
+            return;
+
         if (response.fatConfigs != null) {
             fatConfigs = response.fatConfigs;
         }
@@ -130,7 +133,7 @@ $(function () {
         }
     }
 
-    //根据当前页面信息，返回当前是哪种页面
+    // 根据当前页面信息，返回当前是哪种页面
     function checkPageType() {
         ///Cii/Flight/Process/flt_orderlist.asp这个path对应两个页面：一个需要登录的页面，一个是真正的机票订单列表页面。所以这里才需要这样区分。
         var is_fltOrderlist_loginPage = strCompare(document.location.pathname, '/Cii/Flight/Process/flt_orderlist.asp') 

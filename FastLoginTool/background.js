@@ -1,6 +1,8 @@
-/**
- * ��ȡlocalStorage�������������ͻ�content_scripts
- */
+﻿var pluginSettings = {  //插件配置
+    enable : true
+};
+
+// 读取localStorage，并把数据推送回content_scripts
 chrome.extension.onRequest.addListener(
     function (request, sender, sendResponse) {
         if (request.type == 'getLocalStorage') {
@@ -36,6 +38,7 @@ chrome.extension.onRequest.addListener(
             }
 
             sendResponse({
+                pluginEnabled: pluginSettings.enable,
                 fatConfigs: fatConfigs,
                 uatConfigs: uatConfigs,
                 prodConfigs: prodConfigs,
@@ -45,3 +48,17 @@ chrome.extension.onRequest.addListener(
         }
     }
 );
+
+// 点击浏览器工具栏上的图标来设置插件是否启用
+chrome.browserAction.onClicked.addListener(function () {
+    if (pluginSettings.enable) {
+        chrome.browserAction.setIcon({ path: 'ctripCorpDisabled.png' });
+        chrome.browserAction.setTitle({ title: '当前为禁用状态..〒▽〒' });
+        pluginSettings.enable = false;
+    }
+    else {
+        chrome.browserAction.setIcon({ path: 'ctripCorp.png' });
+        chrome.browserAction.setTitle({ title: '当前为启用状态~♪(^∇^*)' });
+        pluginSettings.enable = true;
+    }
+});

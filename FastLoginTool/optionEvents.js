@@ -90,7 +90,7 @@ document.getElementById("fat_mode_selector").addEventListener("change", setOldFa
 document.getElementById("fat_envir_selector").addEventListener("change", setNewFatLoginDisabled);
 document.getElementById("fat_envir_selector").addEventListener("change", setOldFatLoginDisabled);
 
-//当前模块为1199，1477，9217，5780，1308时，设置新版快速登录的按钮为disabled（因为1199，1477，9217，1308在新版登录时都默认跳fat4，5780默认跳fat2）。
+// 当前模块为1199，1477，9217，5780，1308时，设置新版快速登录的按钮为disabled（因为1199，1477，9217，1308在新版登录时都默认跳fat4，5780默认跳fat2）。
 function setNewFatLoginDisabled() {
     var fat_fastloginnew_btn = document.getElementById('fat_fastloginnew_btn');
     if (!fat_fastloginnew_btn)
@@ -114,7 +114,7 @@ function setNewFatLoginDisabled() {
     }
 }
 
-//当前模块为1308时，设置旧版快速登录的按钮为disabled
+// 当前模块为1308时，设置旧版快速登录的按钮为disabled
 function setOldFatLoginDisabled() {
     var fat_fastloginold_btn = document.getElementById('fat_fastloginold_btn');
     if (!fat_fastloginold_btn)
@@ -144,7 +144,7 @@ function saveFatEnvirConfigs() {
 }
 // #endgrion
 
-//保存登录选项
+// 保存登录选项
 function saveCustomOptions() {
     localStorage.setItem('closeCasoLogin', document.getElementById('chbox_closeCasoLogin').checked);
     localStorage.setItem('closeMessageBox', document.getElementById('chbox_closeMessageBox').checked);
