@@ -6,21 +6,33 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F221C66D-0899-4908-9C8C-FBB5739870A4}"
 	ProjectSection(SolutionItems) = preProject
 		background.html = background.html
-		background.js = background.js
-		closeCasoLogin.png = closeCasoLogin.png
-		closeDialogDepartment.png = closeDialogDepartment.png
-		closeMessageBox.png = closeMessageBox.png
 		ctripCorp.png = ctripCorp.png
-		fastToOffline.js = fastToOffline.js
 		manifest.json = manifest.json
-		optionEvents.js = optionEvents.js
 		options.html = options.html
-		selectorHelper.js = selectorHelper.js
-		util.js = util.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{ADDFF9CB-73F6-40B2-8E04-956BAD416437}"
+	ProjectSection(SolutionItems) = preProject
+		images\closeCasoLogin.png = images\closeCasoLogin.png
+		images\closeDialogDepartment.png = images\closeDialogDepartment.png
+		images\closeMessageBox.png = images\closeMessageBox.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{5231531E-D93F-4634-8751-782F2DA8FE8A}"
+	ProjectSection(SolutionItems) = preProject
+		js\background.js = js\background.js
+		js\fastToOffline.js = js\fastToOffline.js
+		js\optionEvents.js = js\optionEvents.js
+		js\selectorHelper.js = js\selectorHelper.js
+		js\util.js = js\util.js
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ADDFF9CB-73F6-40B2-8E04-956BAD416437} = {F221C66D-0899-4908-9C8C-FBB5739870A4}
+		{5231531E-D93F-4634-8751-782F2DA8FE8A} = {F221C66D-0899-4908-9C8C-FBB5739870A4}
 	EndGlobalSection
 EndGlobal
