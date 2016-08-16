@@ -78,18 +78,19 @@ chrome.extension.onRequest.addListener(
                     var originHost = response.originHost;
                     var pathName = response.pathName;
                     var token = response.token;
-
-                    if (token == null || token == '') {
-                        alert('未能获取当前页面的token，请检查页面参数是否包含token参数');
-                        return;
-                    }
-
                     var isWebServiceAjaxPage = pathName.indexOf('ReserveHotel') != -1 ||
                                                 pathName.indexOf('ReserveHotelModifyOrCopy') != -1 ||
                                                 pathName.indexOf('Search') != -1 ||
                                                 pathName.indexOf('HotelRatePlan') != -1 ||
                                                 pathName.indexOf('Success') != -1;
+
                     if (isWebServiceAjaxPage) {
+
+                        if (token == null || token == '') {
+                            alert('未能获取当前页面的token，请检查页面参数是否包含token参数');
+                            return;
+                        }
+
                         var ajaxPathName = '/CorpOfflineHotelNew/DebugTool/GetWebServiceText';
                         var ajaxUrl = originHost + ajaxPathName;
                         $.ajax({
@@ -102,6 +103,7 @@ chrome.extension.onRequest.addListener(
                         }, function () {
                             sendResponse({ 'status': 500 });
                         });
+
                     } else {
                         alert('当前页面不是webService页面，无法获取相关报文');
                     }
