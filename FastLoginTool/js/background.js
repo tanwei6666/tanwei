@@ -106,6 +106,7 @@ chrome.extension.onRequest.addListener(
 
                     } else {
                         alert('当前页面不是webService页面，无法获取相关报文');
+                        sendResponse({ 'status': 200, 'data': { RequestXml: "", ResponseXml: "" } });
                     }
                 });
             });
