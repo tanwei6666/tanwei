@@ -27,6 +27,8 @@ var EnumfatEnvir = {
     fat47: 'fat47'
 }
 
+var curWebTextEnable = true;
+
 window.onload = function () {
     var defaultEid_fat_uat = 'ypcao';
     var defaultEkey_fat_uat = '';
@@ -189,6 +191,7 @@ document.getElementById("fat_fastloginnew_btn").addEventListener("click", functi
 document.getElementById("uat_fastloginold_btn").addEventListener("click", function () {
     saveCommonEnvirConfigs('uat');
     saveCustomOptions();
+    saveWebTextCookies();
     window.open("http://service.uat.qa.nt.ctripcorp.com/cii/cii.asp");
 });
 
@@ -213,6 +216,29 @@ document.getElementById("prod_fastloginnew_btn").addEventListener("click", funct
     window.open("http://membersint.members.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 // #endgrion
+
+document.getElementById("webTextConfigBtn").addEventListener("click", function () {
+    var btn = document.getElementById("webTextConfigBtn");
+    if (curWebTextEnable) { //启用 -> 禁用
+        btn.innerHTML = '启用获取报文功能';
+        btn.title = "当前状态：未启用，此时报文工具无法获取报文";
+        curWebTextEnable = false;
+    } else {                //禁用 -> 启用
+        btn.innerHTML = '禁用获取报文功能';
+        btn.title = "当前状态：已启用，此时报文工具可以正常获取报文";
+        curWebTextEnable = true;
+    }
+    saveWebTextCookies();
+});
+
+//保存自动跳转时需要额外添加的cookie
+function saveWebTextCookies() {
+    if (curWebTextEnable) {
+        localStorage.setItem('webTextEnable', curWebTextEnable);
+    } else {
+        localStorage.removeItem('webTextEnable');
+    }
+}
 
 //跳转到fat各个环境下的登录入口
 function jumpToFatLoginPage(curLoginVersion) {

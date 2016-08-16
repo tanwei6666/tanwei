@@ -8,16 +8,23 @@
   },
   "browser_action": {
 	 "default_icon": "ctripCorp.png",
-	 "default_title": "当前为启用状态~♪(^∇^*)"
+	 "default_title": "当前为启用状态~♪(^∇^*)",
+	 "default_popup": "webServiceText.html"
+	 //"default_popup": "options.html"
   },
   "options_page": "options.html",
   "background": {
-	"page": "background.html"
+	"scripts":["js/jquery-1.10.2.min.js","js/background.js"]
   }, 
   "content_scripts": [
     {
       "matches": ["*://*.ctriptravel.com/*", "*://*.ctripcorp.com/*", "http://localhost/*"],
-      "js": ["js/util.js", "js/fastToOffline.js"]
-    }
+      "js": ["js/jquery-1.10.2.min.js", "js/fastToOffline.js"]
+    },
+	{
+	  "matches": ["http://*/*", "https://*/*", "file://*/*", "ftp://*/*"],
+	  "js": ["js/util.js", "js/setPluginStatus.js", "js/getCurPageContext.js"],
+	  "run_at" : "document_start"
+	}
   ]
 }

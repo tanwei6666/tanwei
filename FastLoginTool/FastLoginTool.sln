@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ctripCorp.png = ctripCorp.png
 		manifest.json = manifest.json
 		options.html = options.html
+		webServiceText.html = webServiceText.html
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{ADDFF9CB-73F6-40B2-8E04-956BAD416437}"
@@ -22,9 +23,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{5231531E-D93F-
 	ProjectSection(SolutionItems) = preProject
 		js\background.js = js\background.js
 		js\fastToOffline.js = js\fastToOffline.js
+		js\getCurPageContext.js = js\getCurPageContext.js
+		js\jquery-1.10.2.min.js = js\jquery-1.10.2.min.js
 		js\optionEvents.js = js\optionEvents.js
 		js\selectorHelper.js = js\selectorHelper.js
+		js\setPluginStatus.js = js\setPluginStatus.js
 		js\util.js = js\util.js
+		js\webServiceText.js = js\webServiceText.js
 	EndProjectSection
 EndProject
 Global

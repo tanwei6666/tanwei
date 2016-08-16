@@ -5,9 +5,6 @@
         .tab {
             color: black;
             font-size:12px;
-                /*t-family:;
-            text-algn: 对齐方式(center，left,right);
-            background-color: 背景颜色;*/
         }
     </style>
 </head>
@@ -133,7 +130,7 @@
     </fieldset>
     <br />
     <br />
-    <fieldset style="width: 878px">
+    <fieldset style="width: 678px; float:left">
         <legend>开发者工具</legend>
         <table class="tab">
             <tbody>
@@ -147,7 +144,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" id="addCookie_txt" name="addCookie_txt" style="width: 676px; margin-bottom:5px;" />
+                        <input type="text" id="addCookie_txt" name="addCookie_txt" style="width: 476px; margin-bottom:5px;" />
                     </td>
                     <td>
                         <select id="cookie_writeType_selector">
@@ -163,11 +160,16 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <textarea id="addCookiePage_txt" name="addCookiePage_txt" rows="3" cols="20" style="width: 876px"></textarea>
+                        <textarea id="addCookiePage_txt" name="addCookiePage_txt" rows="3" cols="20" style="width: 676px"></textarea>
                     </td>
                 </tr>
             </tbody>
         </table>
+    </fieldset>
+    <fieldset style="width:170px; height:155px">
+        <legend>报文工具</legend>
+        <button id="webTextConfigBtn" title="当前状态：已启用，此时报文工具可以正常获取报文">禁用获取报文功能</button>
+        <!--button title="使用老版登录系统，根据指定配置新建一个窗口并迅速跳到指定模块">清空所有缓存</button>-->
     </fieldset>
     <br />
     <span id="span_tip" style="color:green">温馨提示：清除浏览器缓存和插件数据时，本页面的数据可能会被清空。</span>
@@ -183,6 +185,7 @@
     <br />
     <label style="color: darkgray">版本：1.5</label>
     <label style="margin-left: 280px; color: darkgray">若有疑问，需求，或其它好的建议，欢迎访问：<a href="http://conf.ctripcorp.com/pages/viewpage.action?pageId=83145144">Confluence文档</a>，软件更新后也会第一时间发布在此文档中。</label>
+
     <script type="text/javascript" src="js/util.js"></script>
     <script type="text/javascript" src="js/selectorHelper.js"></script>
     <script type="text/javascript" src="js/optionEvents.js"></script>
