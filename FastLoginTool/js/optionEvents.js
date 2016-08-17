@@ -177,7 +177,6 @@ document.getElementById("fat_fastloginold_btn").addEventListener("click", functi
     saveFatEnvirConfigs();
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     jumpToFatLoginPage(EnumLoginVersion.Old);
 });
 
@@ -186,7 +185,6 @@ document.getElementById("fat_fastloginnew_btn").addEventListener("click", functi
     saveFatEnvirConfigs();
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     jumpToFatLoginPage(EnumLoginVersion.New);
 });
 
@@ -194,7 +192,6 @@ document.getElementById("uat_fastloginold_btn").addEventListener("click", functi
     saveCommonEnvirConfigs('uat');
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     window.open("http://service.uat.qa.nt.ctripcorp.com/cii/cii.asp");
 });
 
@@ -202,7 +199,6 @@ document.getElementById("uat_fastloginnew_btn").addEventListener("click", functi
     saveCommonEnvirConfigs('uat');
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     window.open("http://membersint.members.uat.qa.nt.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 
@@ -210,7 +206,6 @@ document.getElementById("prod_fastloginold_btn").addEventListener("click", funct
     saveCommonEnvirConfigs('prod');
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     window.open("http://server.sh.ctriptravel.com/sh_service/default.htm");
 });
 
@@ -218,7 +213,6 @@ document.getElementById("prod_fastloginnew_btn").addEventListener("click", funct
     saveCommonEnvirConfigs('prod');
     saveCustomOptions();
     saveCustomCookies();
-    saveWebTextCookies();
     window.open("http://membersint.members.ctripcorp.com/offlineauthlogin/Login.aspx");
 });
 // #endgrion

@@ -14,7 +14,7 @@ function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
     var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
+    document.cookie = cname + "=" + cvalue + "; " + expires + ";path=/";
 }
 
 //获取cookie
@@ -35,7 +35,7 @@ function clearCookie(name) {
     exp.setTime(exp.getTime() - 1);
     var cval = getCookie(name);
     if (cval != null)
-        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString() + ";path=/";
 }
 
 // 通过配置的cookies字符串，返回具有key-value键值对形式的cookie数组。

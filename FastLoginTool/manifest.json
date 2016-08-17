@@ -18,7 +18,7 @@
   }, 
   "content_scripts": [
     {
-      "matches": ["*://*.ctriptravel.com/*", "*://*.ctripcorp.com/*", "http://localhost/*"],
+      "matches": ["*://*.ctriptravel.com/*", "*://*.ctripcorp.com/*"],
       "js": ["js/jquery-1.10.2.min.js", "js/fastToOffline.js"]
     },
 	{
@@ -27,8 +27,8 @@
 	  "run_at" : "document_start"
 	},
 	{
-		"matches": ["*://*.ctriptravel.com/CorpOfflineHotelNew/*", "*://*.ctripcorp.com/CorpOfflineHotelNew/*", "http://localhost/CorpOfflineHotelNew/*",
-					"*://*.ctriptravel.com/CorpOfflineHotel/*", "*://*.ctripcorp.com/CorpOfflineHotel/*", "http://localhost/CorpOfflineHotel/*"
+		"matches": ["*://*.ctriptravel.com/CorpOfflineHotelNew/*", "*://*.ctripcorp.com/CorpOfflineHotelNew/*",
+					"*://*.ctriptravel.com/CorpOfflineHotel/*", "*://*.ctripcorp.com/CorpOfflineHotel/*"
 		],
 		"js": ["js/util.js", "js/setWebTextStatus.js"]
 	}
