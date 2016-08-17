@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "js", "js", "{5231531E-D93F-
 		js\optionEvents.js = js\optionEvents.js
 		js\selectorHelper.js = js\selectorHelper.js
 		js\setPluginStatus.js = js\setPluginStatus.js
+		js\setWebTextStatus.js = js\setWebTextStatus.js
 		js\util.js = js\util.js
 		js\webServiceText.js = js\webServiceText.js
 	EndProjectSection

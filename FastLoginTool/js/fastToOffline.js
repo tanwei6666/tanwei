@@ -45,8 +45,6 @@ $(function () {
     var curFatSys = '';         //保存当前fat登录系统是老版还是新版（fat47）
     var isLoginAgain4Prod = false; //是否是生产环境下的二次登录
 
-    var webTextCookieName = "webTextEnable";
-
     var fatConfigs, uatConfigs, prodConfigs, customConfigs, cookieConfigs, webTextConfigs;
 
     /* -------------------------------------------------- 环境配置end --------------------------------------------*/
@@ -84,7 +82,6 @@ $(function () {
         checkEnvir();
         checkLoginSystem();
         writeCustomCookies();
-        writeWebTextCookies();
         pageAutoRun();
     });
 
@@ -147,17 +144,6 @@ $(function () {
                             break;
                     }
                 }
-            }
-        }
-    }
-
-    function writeWebTextCookies() {
-        if (webTextConfigs) {
-            var enable = webTextConfigs.webTextEnable;
-            if (enable) {
-                setCookie(webTextCookieName, enable);
-            } else {
-                clearCookie(webTextCookieName);
             }
         }
     }

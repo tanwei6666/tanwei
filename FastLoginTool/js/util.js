@@ -9,27 +9,6 @@ function strCompare(str1, str2) {
     return s1.toLowerCase() == s2.toLowerCase();
 }
 
-//// 获取cookie
-//function getCookie(c_name) {
-//    if (document.cookie.length > 0) {
-//        c_start = document.cookie.indexOf(c_name + "=");
-//        if (c_start != -1) {
-//            c_start = c_start + c_name.length + 1;
-//            c_end = document.cookie.indexOf(";", c_start);
-//            if (c_end == -1) {
-//                c_end = document.cookie.length;
-//            } 
-//            return unescape(document.cookie.substring(c_start, c_end));
-//        }
-//    }
-//    return "";
-//}
-
-//// 设置cookie
-//function setCookie(c_name, value) {
-//    document.cookie = c_name + "=" + escape(value);
-//}
-
 //设置cookie
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -52,7 +31,11 @@ function getCookie(cname) {
 
 //清除cookie  
 function clearCookie(name) {
-    setCookie(name, "", -1);
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval = getCookie(name);
+    if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
 }
 
 // 通过配置的cookies字符串，返回具有key-value键值对形式的cookie数组。

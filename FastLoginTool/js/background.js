@@ -45,21 +45,28 @@ chrome.extension.onRequest.addListener(
                 cookiesWriteUrls: localStorage.getItem('cookiesWriteUrls')
             }
 
-            var webTextConfigs = {
-                webTextEnable: localStorage.getItem('webTextEnable')
-            }
-
             sendResponse({
                 pluginEnabled: pluginSettings.enable,
                 fatConfigs: fatConfigs,
                 uatConfigs: uatConfigs,
                 prodConfigs: prodConfigs,
                 customConfigs: customConfigs,
-                cookieConfigs: cookieConfigs,
-                webTextConfigs: webTextConfigs
+                cookieConfigs: cookieConfigs
             });
 
         }
+
+        if (request.type == 'getLocalStorage_webTextStatus') {  //读取localStorage，并把数据推送回报文调试工具的设置文档
+            var webTextConfigs = {
+                webTextEnable: localStorage.getItem('webTextEnable')
+            }
+
+            sendResponse({
+                pluginEnabled: pluginSettings.enable,
+                webTextConfigs: webTextConfigs
+            });
+        }
+        
 
         if (request.type == 'getWebServiceTextAjax') {  //向服务端（目前仅支持新版offline）发起请求，获取web服务报文
             
