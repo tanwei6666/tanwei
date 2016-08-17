@@ -3,6 +3,8 @@
 };
 var curPageContext = null;
 
+localStorage.setItem('webTextEnable', true);    //默认启用报文获取工具
+
 // 监听content_script发来的请求
 chrome.extension.onRequest.addListener(
     function (request, sender, sendResponse) {
@@ -81,7 +83,7 @@ chrome.extension.onRequest.addListener(
                     if (response == null) {
                         alert('未能获取当前页面的上下文信息，请等页面加载完毕或刷新页面后重试');
                         return;
-                    };
+                    }
                     var originHost = response.originHost;
                     var pathName = response.pathName;
                     var token = response.token;
@@ -89,7 +91,9 @@ chrome.extension.onRequest.addListener(
                                                 pathName.indexOf('ReserveHotelModifyOrCopy') != -1 ||
                                                 pathName.indexOf('Search') != -1 ||
                                                 pathName.indexOf('HotelRatePlan') != -1 ||
-                                                pathName.indexOf('Success') != -1;
+                                                pathName.indexOf('Success') != -1 || 
+                                                pathName.indexOf('Hotel.AgentAccount') != -1 ||
+                                                pathName.indexOf('FaxToHotelPreprocess') != -1;
 
                     if (isWebServiceAjaxPage) {
 
