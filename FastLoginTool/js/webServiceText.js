@@ -36,6 +36,11 @@ document.getElementById("hotelRatePlanBtn").addEventListener("click", function (
     getWebServiceText('HotelRatePlan');
 });
 
+document.getElementById("amadeusRealTimeBtn").addEventListener("click", function () {
+    prepareForGetText();
+    getWebServiceText('AmadeusRealTime');
+});
+
 function prepareForGetText() {
     var reqTextArea = document.getElementById('reqTa');
     var respTextArea = document.getElementById('respTa');
