@@ -27,8 +27,11 @@
 	  "run_at" : "document_start"
 	},
 	{
-		"matches": ["*://*.ctriptravel.com/CorpOfflineHotelNew/*", "*://*.ctripcorp.com/CorpOfflineHotelNew/*",
-					"*://*.ctriptravel.com/CorpOfflineHotel/*", "*://*.ctripcorp.com/CorpOfflineHotel/*"
+		"matches": [
+					"*://*.ctriptravel.com/CorpOfflineHotelNew/*", "*://*.ctripcorp.com/CorpOfflineHotelNew/*",
+					"*://*.ctriptravel.com/CorpOfflineHotel/*", "*://*.ctripcorp.com/CorpOfflineHotel/*",
+					"*://*.ctriptravel.com/corpofflinehotelnew/*", "*://*.ctripcorp.com/corpofflinehotelnew/*",	//纯小写
+					"*://*.ctriptravel.com/corpofflinehotel/*", "*://*.ctripcorp.com/corpofflinehotel/*"
 		],
 		"js": ["js/util.js", "js/setWebTextStatus.js"]
 	}
